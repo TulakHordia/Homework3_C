@@ -15,17 +15,17 @@ typedef struct
 	int				count;
 }Product;
 
-void	initProduct(Product* pProduct);
-void	initProductNoBarcode(Product* pProduct);
-void	initProductName(Product* pProduct);
-void	printProduct(const Product* pProduct);
+void			initProduct(Product* pProduct);
+void			initProductNoBarcode(Product* pProduct);
+void			initProductName(Product* pProduct);
+void			printProduct(const Product* pProduct);
 
-void	getBorcdeCode(char* code);
-int		isProduct(const Product* pProduct,const char* barcode);
-eProductType getProductType();
-const char*	getProductTypeStr(eProductType type);
+void			getBorcdeCode(char* code);
+int				isProduct(const Product* pProduct,const char* barcode);
+eProductType	getProductType();
+const char*		getProductTypeStr(eProductType type);
 
-void	updateProductCount(Product* pProduct);
-void	freeProduct(Product* pProduct);
-int	writeProductInBinFile(FILE* file,  Product* prod);
-int	readProductInBinFile(FILE* file, Product* prod);
+void			updateProductCount(Product* pProduct);
+void			freeProduct(Product* pProduct);
+int				writeProductInBinFile(FILE* file,  Product* prod);
+int				readProductInBinFile(FILE* file, Product* prod);

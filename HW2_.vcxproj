@@ -126,6 +126,7 @@
     <ClCompile Include="Address.c" />
     <ClCompile Include="Customer.c" />
     <ClCompile Include="General.c" />
+    <ClCompile Include="listGen.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Product.c" />
     <ClCompile Include="ShoppingCart.c" />
@@ -135,7 +136,9 @@
   <ItemGroup>
     <ClInclude Include="Address.h" />
     <ClInclude Include="Customer.h" />
+    <ClInclude Include="def.h" />
     <ClInclude Include="General.h" />
+    <ClInclude Include="listGen.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="ShoppingCart.h" />

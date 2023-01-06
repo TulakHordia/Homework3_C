@@ -138,11 +138,19 @@ int writeAddressInBinFile(FILE* file, Address* pAdd)
 		return 0;
 	if (fwrite(pAdd->street, sizeof(char), len, file) != len)
 		return 0;
+
 	len = (int)strlen(pAdd->city) + 1;
+
 	if (fwrite(&len, sizeof(int), 1, file) != 1)
+	{
 		return 0;
+	}
+
 	if (fwrite(pAdd->city, sizeof(char), len, file) != len)
+	{
 		return 0;
+	}
+
 	return 1;
 }
 

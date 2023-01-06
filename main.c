@@ -20,12 +20,12 @@ int main()
 	SuperMarket	market;
 	int success = 1;
 	printf("try to load the files\n");
-	if (readSuperMarketToBFile(BIN_FILE_NAME, &market) == 0)
+	if (readSupermarketFromBinaryFile(BIN_FILE_NAME, &market) == 0)
 	{
 		success = 0;
 	}
 	printAllProducts(&market);
-	if (readCustomersArrToTxtFile(Text_FILE_NAME, &market)==0)
+	if (readCustomersFromTxtFile(Text_FILE_NAME, &market)==0)
 	{
 		success = 0;
 	}
@@ -85,6 +85,7 @@ int main()
 			break;
 
 		case EXIT:
+			makeCustomersPay(&market);
 			printf("Bye bye\n");
 			stop = 1;
 			break;
@@ -102,8 +103,8 @@ int main()
 	{
 		printf("Failed saving to txt!");
 	}
+
 	freeMarket(&market);
-	
 	system("pause");
 	return 1;
 }

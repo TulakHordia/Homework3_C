@@ -3,6 +3,7 @@
 #include "Customer.h"
 #include "Product.h"
 #include "ShoppingCart.h"
+#include "listGen.h"
 
 typedef enum { eNoSort, eName, eTimesSpended, eTotalSpend, eNofSortType } eSort;
 static const char* typeSort[eNofSortType] = { "NotSorted" ,"Name", "Number of times Purchase", "Total spend" };
@@ -13,8 +14,11 @@ typedef struct
 	Address		location;
 	Customer*	customerArr;
 	int			customerCount;
-	Product**	productArr;
-	int			productCount;
+	LIST		productList;
+
+	//Product**	productArr;
+	//int			productCount;
+
 	eSort		sortType;
 }SuperMarket;
 
@@ -30,9 +34,12 @@ Customer*	doPrintCart(SuperMarket* pMarket);
 int			doPayment(SuperMarket* pMarket);
 Customer*	getCustomerShopPay(SuperMarket* pMarket);
 void		fillCart(SuperMarket* pMarket, ShoppingCart* pCart);
+
+//Prints
 void		printProductByType(SuperMarket* pMarket);
 void		printAllProducts(const SuperMarket* pMarket);
 void		printAllCustomers(const SuperMarket* pMarket);
+
 int			getProductIndexByBarcode(SuperMarket* pMarket, const char* barcode);
 Product*	getProductByBarcode(SuperMarket* pMarket, const char* barcode);
 Product*	getProductFromUser(SuperMarket* pMarket, char* barcode);
@@ -41,18 +48,26 @@ Customer*	FindCustomerByName(SuperMarket* pMarket, const char* name);
 Customer*	getCustomerWhoShop(SuperMarket* pMarket);
 Product*	getProductAndCount(SuperMarket* pMarket, int* pCount);
 
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+void		makeCustomersPay(SuperMarket* pMarket);
+int			insertBarcodeToTheCorrectPlace(SuperMarket* pMarket, Product* product);
+int			countProductsInList(const SuperMarket* pMarket);
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+// 
+// 
+// 
 //__________________________________________________________________________
-int			writeProductArrToBFile(FILE* fileName, Product** proArr, int count);
-Product**	readProductArrFromBFile(FILE* fileName, int* pCount);
+int			writeProductArrToBFile(FILE* fileName, LIST* proArr);
+BOOL		readProductArrFromBFile(FILE* fileName, LIST* theList);
 //--------------------------------------------------------------------------
 int			writeCustomerArrToTxtFile(FILE* fileName, Customer* CustArr, int count);
 Customer*	readCustomerArrFromTxtFile(FILE* fileName, int* pCount);
 //____________________________________________________________________
 int			writeSuperMarketToBFile(const char* fileName, SuperMarket* pmarket);
-int			readSuperMarketToBFile(const char* fileName, SuperMarket* pmarket);
+int			readSupermarketFromBinaryFile(const char* fileName, SuperMarket* pmarket);
 //_______________________________________________________________________
 int			writeCustomersArrToTxtFile(const char* fileName, SuperMarket* pmarket);
-int			readCustomersArrToTxtFile(const char* fileName, SuperMarket* pmarket);
+int			readCustomersFromTxtFile(const char* fileName, SuperMarket* pmarket);
 //________________________________________________________________________
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

@@ -1,4 +1,4 @@
-7
+5
 Shalom Ha Ari
 1 45.700001
 Tamar Choen
@@ -9,7 +9,3 @@ Micah Avi Levi
 5 1230.900024
 Yaffa Beri
 7 2340.899902
-Ziv
-0 0.000000
-Beni
-0 0.000000

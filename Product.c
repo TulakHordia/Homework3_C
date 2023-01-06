@@ -84,9 +84,7 @@ void getBorcdeCode(char* code)
 				}
 			}
 		}
-		
 	} while (!ok);
-
 	strcpy(code, temp);
 }
 
@@ -108,14 +106,18 @@ eProductType getProductType()
 const char* getProductTypeStr(eProductType type)
 {
 	if (type < 0 || type >= eNofProductType)
+	{
 		return NULL;
+	}
 	return typeStr[type];
 }
 
 int		isProduct(const Product* pProduct, const char* barcode)
 {
 	if (strcmp(pProduct->barcode, barcode) == 0)
+	{
 		return 1;
+	}
 	return 0;
 }
 
@@ -137,51 +139,18 @@ void	freeProduct(Product* pProduct)
 
 int writeProductInBinFile(FILE* file, Product* prod)
 {
-	/*int len = (int)strlen(prod->barcode) + 1;
-	if (fwrite(&len, sizeof(int), 1, file) != 1)
-		return 0;
-	if (fwrite(prod->barcode, sizeof(char), len, file) !=len)
-		return 0;
-	len = (int)strlen(prod->name) + 1;
-	if (fwrite(&len, sizeof(int), 1, file) != 1)
-		return 0;
-	if (fwrite(prod->name, sizeof(char), len, file) != len)
-		return 0;
-	if (fwrite(&prod->type, sizeof(eProductType), 1, file) != 1)
-		return 0;
-	if (fwrite(&prod->price, sizeof(float), 1, file) != 1)
-		return 0;
-	if (fwrite(&prod->count, sizeof(int), 1, file) != 1)
-		return 0;*/
 	if (fwrite(prod, sizeof(Product), 1, file) != 1)
+	{
 		return 0;
+	}
 	return 1;
 }
 
 int readProductInBinFile(FILE* file, Product* prod)
 {
-	/*int len;
-	if (fread(&len, sizeof(int), 1, file) != 1)
-		return 0;
-	if (fread(prod->barcode, sizeof(char), len, file) != len) 
-	{
-		return 0;
-	}
-	if (fread(&len, sizeof(int), 1, file) != 1)
-		return 0;
-	if (fread(prod->name, sizeof(char), len, file) != len)
-	{
-		return 0;
-	}
-	if (fread(&prod->type, sizeof(eProductType), 1, file) != 1)
-		return 0;
-	if (fread(&prod->price, sizeof(float), 1, file) != 1)
-		return 0;
-	if (fread(&prod->count, sizeof(int), 1, file) != 1)
-		return 0;*/
-	
 	if (fread(prod, sizeof(Product), 1, file) != 1)
+	{
 		return 0;
-
+	}
 	return 1;
 }
