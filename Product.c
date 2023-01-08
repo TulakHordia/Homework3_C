@@ -12,7 +12,7 @@
 void	initProduct(Product* pProduct)
 {
 	initProductNoBarcode(pProduct);
-	getBorcdeCode(pProduct->barcode);
+	getBarcodeCode(pProduct->barcode);
 }
 
 void	initProductNoBarcode(Product* pProduct)
@@ -37,7 +37,7 @@ void	printProduct(const Product* pProduct)
 	printf("%-20s %5.2f %10d\n", typeStr[pProduct->type], pProduct->price, pProduct->count);
 }
 
-void getBorcdeCode(char* code)
+void getBarcodeCode(char* code)
 {
 	char temp[MAX_STR_LEN];
 	char msg[MAX_STR_LEN];

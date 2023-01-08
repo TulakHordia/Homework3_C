@@ -20,7 +20,7 @@ void			initProductNoBarcode(Product* pProduct);
 void			initProductName(Product* pProduct);
 void			printProduct(const Product* pProduct);
 
-void			getBorcdeCode(char* code);
+void			getBarcodeCode(char* code);
 int				isProduct(const Product* pProduct,const char* barcode);
 eProductType	getProductType();
 const char*		getProductTypeStr(eProductType type);

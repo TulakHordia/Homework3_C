@@ -24,7 +24,7 @@ int main()
 	{
 		success = 0;
 	}
-	printAllProducts(&market);
+	//printAllProducts(&market);
 	if (readCustomersFromTxtFile(Text_FILE_NAME, &market)==0)
 	{
 		success = 0;

@@ -15,8 +15,6 @@ int		initSuperMarket(SuperMarket* pMarket)
 {
 	pMarket->customerCount = 0;
 	pMarket->customerArr = NULL;
-	//pMarket->productCount = 0;
-	//pMarket->productArr = NULL;
 	L_init(&pMarket->productList);
 	pMarket->name = getStrExactLength("Enter market name");
 	pMarket->sortType = eNoSort;
@@ -49,16 +47,11 @@ int		addProduct(SuperMarket* pMarket)
 		}
 
 	}
-
 	return 1;
 }
 
 int		addNewProduct(SuperMarket* pMarket,const char* barcode)
 {
-	//pMarket->productArr = (Product**)realloc(pMarket->productArr, (pMarket->productCount + 1) * sizeof(Product*));
-	//if (!pMarket->productArr)
-	//	return 0;
-	
 	Product* pProd = (Product*)calloc(1, sizeof(Product));
 	if (!pProd)
 	{
@@ -74,10 +67,6 @@ int		addNewProduct(SuperMarket* pMarket,const char* barcode)
 		free(pProd);
 		return 0;
 	}
-
-	//pMarket->productArr[pMarket->productCount] = pProd;
-	//pMarket->productCount++;
-	//free(pProd);
 	return 1;
 }
 
@@ -220,12 +209,6 @@ void	printAllCustomers(const SuperMarket* pMarket)
 {
 	printf("There are %d listed customers\n", pMarket->customerCount);
 	generalArrayFuction((void*)pMarket->customerArr, pMarket->customerCount, sizeof(Customer), printCustomer);
-
-	//for (int i = 0; i < pMarket->customerCount; i++)
-	//{
-	//	printCustomer(&pMarket->customerArr[i]);
-	//}
-
 }
 
 int writeProductArrToBFile(FILE* fileName, LIST* proArr, int count)
@@ -408,31 +391,34 @@ int readSupermarketFromBinaryFile(const char* fileName, SuperMarket* pMarket)
 
 int writeCustomersArrToTxtFile(const char* fileName, SuperMarket* pMarket)
 {
-	FILE* fp;
-	fp = fopen(fileName, "w");
-	if (!fp)
+	FILE* fileOpen;
+	fileOpen = fopen(fileName, "w");
+	if (!fileOpen)
 		return 0;
-	if(writeCustomerArrToTxtFile(fp,pMarket->customerArr,pMarket->customerCount)==0)
+	if(writeCustomerArrToTxtFile(fileOpen,pMarket->customerArr,pMarket->customerCount)==0)
 	{
-		fclose(fp);
+		fclose(fileOpen);
 		return 0;
 	}
-	fclose(fp);
+	fclose(fileOpen);
 	return 1;
 }
 
 int readCustomersFromTxtFile(const char* fileName, SuperMarket* pmarket)
 {
-	FILE* fp = fopen(fileName, "r");
-	if (!fp)
-		return 0;
-	pmarket->customerArr = readCustomerArrFromTxtFile(fp, &pmarket->customerCount);
-	if (!pmarket->customerArr) 
+	FILE* fileOpen = fopen(fileName, "r");
+	if (!fileOpen)
 	{
-		fclose(fp);
 		return 0;
 	}
-	fclose(fp);
+
+	pmarket->customerArr = readCustomerArrFromTxtFile(fileOpen, &pmarket->customerCount);
+	if (!pmarket->customerArr) 
+	{
+		fclose(fileOpen);
+		return 0;
+	}
+	fclose(fileOpen);
 	return 1;
 }
 
@@ -531,7 +517,7 @@ void	printProductByType(SuperMarket* pMarket)
 
 Product* getProductFromUser(SuperMarket* pMarket, char* barcode)
 {
-	getBorcdeCode(barcode);
+	getBarcodeCode(barcode);
 	return getProductByBarcode(pMarket, barcode);
 }
 
@@ -540,23 +526,19 @@ void	freeMarket(SuperMarket* pMarket)
 	free(pMarket->name);
 	freeAddress(&pMarket->location);
 	L_free(&pMarket->productList, free);
-	for (int i = 0; i < pMarket->customerCount; i++)
-	{
-		freeCustomer(&pMarket->customerArr[i]);
-	}
 	generalArrayFuction((void*)pMarket->customerArr, pMarket->customerCount, sizeof(Customer), freeCustomer);
 	free(pMarket->customerArr);
 }
 
 void	getUniquBarcode(char* barcode, SuperMarket* pMarket)
 {
-	int cont = 1;
-	while (cont)
+	int count = 1;
+	while (count)
 	{
-		getBorcdeCode(barcode);
+		getBarcodeCode(barcode);
 		int index = getProductIndexByBarcode(pMarket, barcode);
 		if (index == -1)
-			cont = 0;
+			count = 0;
 		else
 			printf("This product already in market\n");
 	}
@@ -607,15 +589,6 @@ int getProductIndexByBarcode(SuperMarket* pMarket, const char* barcode)
 		p = p->next;
 	}
 	return -1;
-
-	/*
-	* 	for (int i = -1; i < pMarket->productCount; i++)
-	{
-		if (isProduct(pMarket->productArr[i], barcode))
-			return i;
-	}
-	return -1;
-	*/
 }
 
 
