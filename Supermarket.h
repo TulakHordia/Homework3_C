@@ -23,7 +23,7 @@ typedef struct
 }SuperMarket;
 
 
-int			initSuperMarket(SuperMarket* pMarket);
+int			initSuperMarket(SuperMarket* pMarket, const char* supermarketFileName, const char* customersFileName);
 void		printSuperMarket(const SuperMarket* pMarket);
 int			addProduct(SuperMarket* pMarket);
 int			addNewProduct(SuperMarket* pMarket, const char* barcode);

@@ -11,14 +11,35 @@
 #include "General.h"
 #include "ShoppingCart.h"
 
-int		initSuperMarket(SuperMarket* pMarket)
+int		initSuperMarket(SuperMarket* pMarket, const char* supermarketFileName, const char* customersFileName)
 {
 	pMarket->customerCount = 0;
 	pMarket->customerArr = NULL;
 	L_init(&pMarket->productList);
 	pMarket->name = getStrExactLength("Enter market name");
 	pMarket->sortType = eNoSort;
-	return initAddress(&pMarket->location);
+	if (!initAddress(&pMarket->location))
+	{
+		printf("Failed to initalize address");
+		return 0;
+	}
+	if (readSupermarketFromBinaryFile(supermarketFileName, pMarket) == 1)
+	{
+		printf("Supermarket binary file loaded.\n");
+	}
+	else {
+		printf("Error loading Supermarket binary file.\n");
+	}
+	if (readCustomersFromTxtFile(customersFileName, pMarket) == 1)
+	{
+		printf("Customers text file loaded.\n");
+	}
+	else
+	{
+		printf("Error loading Customers text file.");
+	}
+
+	return 1;
 }
 
 void	printSuperMarket(const SuperMarket* pMarket)

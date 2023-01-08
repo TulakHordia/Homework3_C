@@ -18,25 +18,13 @@ const char* menuStrings[eNofOptions] = { "Show Supermarket.", "Add Product.",
 int main()
 {
 	SuperMarket	market;
-	int success = 1;
-	printf("try to load the files\n");
-	if (readSupermarketFromBinaryFile(BIN_FILE_NAME, &market) == 0)
+
+	if (!initSuperMarket(&market, BIN_FILE_NAME, Text_FILE_NAME))
 	{
-		success = 0;
+		printf("Error initializing Supermarket");
+		return 0;
 	}
-	//printAllProducts(&market);
-	if (readCustomersFromTxtFile(Text_FILE_NAME, &market)==0)
-	{
-		success = 0;
-	}
-	if (success == 0)
-	{
-		if (!initSuperMarket(&market))
-		{
-			printf("error init  Super Market");
-			return 0;
-		}
-	}
+	
 	int option;
 	int stop = 0;
 	
