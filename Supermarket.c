@@ -219,15 +219,19 @@ void	printAllProducts(const SuperMarket* pMarket)
 void	printAllCustomers(const SuperMarket* pMarket)
 {
 	printf("There are %d listed customers\n", pMarket->customerCount);
-	for (int i = 0; i < pMarket->customerCount; i++)
-		printCustomer(&pMarket->customerArr[i]);
+	generalArrayFuction((void*)pMarket->customerArr, pMarket->customerCount, sizeof(Customer), printCustomer);
+
+	//for (int i = 0; i < pMarket->customerCount; i++)
+	//{
+	//	printCustomer(&pMarket->customerArr[i]);
+	//}
+
 }
 
-int writeProductArrToBFile(FILE* fileName, LIST* proArr)
+int writeProductArrToBFile(FILE* fileName, LIST* proArr, int count)
 {
 	NODE* p;
 	p = proArr->head.next;
-	int count;
 	if (fwrite(&count, sizeof(int), 1, fileName) != 1)
 	{
 		return 0;
@@ -323,6 +327,7 @@ int writeSuperMarketToBFile(const char* fileName, SuperMarket* pMarket)
 	if (!fileOpen)
 		return 0;
 	int len =(int) strlen(pMarket->name) + 1;
+	int count = countProductsInList(pMarket);
 	if (fwrite(&len, sizeof(int), 1, fileOpen) != 1)
 	{
 		fclose(fileOpen);
@@ -338,7 +343,8 @@ int writeSuperMarketToBFile(const char* fileName, SuperMarket* pMarket)
 		fclose(fileOpen);
 		return 0;
 	}
-	if (writeProductArrToBFile(fileOpen, &pMarket->productList) == 0)
+
+	if (writeProductArrToBFile(fileOpen, &pMarket->productList, count) == 0)
 	{
 		fclose(fileOpen);
 			return 0;
@@ -534,20 +540,11 @@ void	freeMarket(SuperMarket* pMarket)
 	free(pMarket->name);
 	freeAddress(&pMarket->location);
 	L_free(&pMarket->productList, free);
-
-	/*
-	* 	for (int i = 0; i < pMarket->productCount; i++)
-	{
-		freeProduct(pMarket->productArr[i]);
-		free(pMarket->productArr[i]);
-	}
-	free(pMarket->productArr);
-	*/
-
 	for (int i = 0; i < pMarket->customerCount; i++)
 	{
 		freeCustomer(&pMarket->customerArr[i]);
 	}
+	generalArrayFuction((void*)pMarket->customerArr, pMarket->customerCount, sizeof(Customer), freeCustomer);
 	free(pMarket->customerArr);
 }
 

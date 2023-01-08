@@ -15,5 +15,8 @@ int		getPositiveInt(const char* msg);
 int		countCharInString(const char* str, char tav);
 int		checkEmptyString(char* str);
 
+//__________________________________________________________________________________
+void generalArrayFuction(void* arr, int size, size_t sizeOf, void(*f)(void*));
+
 #endif
 

@@ -113,3 +113,11 @@ int		checkEmptyString(char* str)
 	}
 	return 1;
 }
+
+void generalArrayFuction(void* arr, int size, size_t sizeOf, void(*f)(void*))
+{
+	for (int i = 0; i < size; i++)
+	{
+		f((char*)arr + i * sizeOf);
+	}
+}

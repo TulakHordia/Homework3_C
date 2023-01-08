@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+#include "General.h"
 #include "ShoppingCart.h"
 
 
@@ -78,7 +78,10 @@ ShoppingItem*	getItemByBarocde(ShoppingCart* pCart, const char* barcode)
 void	freeShoppingCart(ShoppingCart* pCart)
 {
 	for (int i = 0; i < pCart->count; i++)
+	{
 		free(pCart->itemArr[i]);
+	}
 
+	generalArrayFuction((void*)pCart->itemArr, pCart->count, sizeof(ShoppingCart), freeProduct);
 	free(pCart->itemArr);
 }

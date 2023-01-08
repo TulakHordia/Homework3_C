@@ -57,7 +57,7 @@ int			countProductsInList(const SuperMarket* pMarket);
 // 
 // 
 //__________________________________________________________________________
-int			writeProductArrToBFile(FILE* fileName, LIST* proArr);
+int			writeProductArrToBFile(FILE* fileName, LIST* proArr, int count);
 BOOL		readProductArrFromBFile(FILE* fileName, LIST* theList);
 //--------------------------------------------------------------------------
 int			writeCustomerArrToTxtFile(FILE* fileName, Customer* CustArr, int count);
