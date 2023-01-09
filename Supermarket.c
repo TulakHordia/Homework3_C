@@ -13,22 +13,23 @@
 
 int		initSuperMarket(SuperMarket* pMarket, const char* supermarketFileName, const char* customersFileName)
 {
-	pMarket->customerCount = 0;
-	pMarket->customerArr = NULL;
-	L_init(&pMarket->productList);
-	pMarket->name = getStrExactLength("Enter market name");
-	pMarket->sortType = eNoSort;
-	if (!initAddress(&pMarket->location))
-	{
-		printf("Failed to initalize address");
-		return 0;
-	}
+
 	if (readSupermarketFromBinaryFile(supermarketFileName, pMarket) == 1)
 	{
 		printf("Supermarket binary file loaded.\n");
 	}
 	else {
 		printf("Error loading Supermarket binary file.\n");
+		pMarket->customerCount = 0;
+		pMarket->customerArr = NULL;
+		L_init(&pMarket->productList);
+		pMarket->name = getStrExactLength("Enter market name");
+		pMarket->sortType = eNoSort;
+		if (!initAddress(&pMarket->location))
+		{
+			printf("Failed to initalize address");
+			return 0;
+		}
 	}
 	if (readCustomersFromTxtFile(customersFileName, pMarket) == 1)
 	{
@@ -38,6 +39,8 @@ int		initSuperMarket(SuperMarket* pMarket, const char* supermarketFileName, cons
 	{
 		printf("Error loading Customers text file.");
 	}
+
+
 
 	return 1;
 }
